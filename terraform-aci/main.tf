@@ -1,22 +1,10 @@
-# main.tf
-
-provider "azurerm" {
-  features {}
-}
-
-# Random ID resource to generate a suffix for the DNS name
-resource "random_id" "suffix" {
-  byte_length = 8
-}
-
-# Define the Azure Container Group resource
 resource "azurerm_container_group" "app" {
-  name                = "${var.container_group_name}-${random_id.suffix.hex}"
+  name                = "damceyapp-${random_integer.suffix.result}"
   location            = var.location
   resource_group_name = var.resource_group_name
   os_type             = "Linux"
   ip_address_type     = "Public"
-  dns_name_label      = "${var.container_group_name}-${random_id.suffix.hex}"
+  dns_name_label      = "damceyapp-${random_integer.suffix.result}"
 
   container {
     name   = "damcey-app"
@@ -33,9 +21,4 @@ resource "azurerm_container_group" "app" {
   tags = {
     environment = "dev"
   }
-}
-
-# Output the DNS name of the deployed container
-output "container_app_url" {
-  value = azurerm_container_group.app.fqdn
 }
