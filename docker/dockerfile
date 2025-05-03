@@ -1,0 +1,11 @@
+# Use a lightweight web server image
+FROM nginx:alpine
+
+# Copy our HTML app into the NGINX web server directory
+COPY app/ /usr/share/nginx/html
+
+# Expose port 80 (standard web port)
+EXPOSE 80
+
+# Start NGINX automatically
+CMD ["nginx", "-g", "daemon off;"]
