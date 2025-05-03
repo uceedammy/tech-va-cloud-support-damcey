@@ -1,24 +1,25 @@
+resource "random_integer" "suffix" {
+  min = 10000
+  max = 99999
+}
+
 resource "azurerm_container_group" "app" {
   name                = "damceyapp-${random_integer.suffix.result}"
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  os_type             = "Linux"
+  location            = "eastus"
+  resource_group_name = "damcey-rg"
   ip_address_type     = "Public"
   dns_name_label      = "damceyapp-${random_integer.suffix.result}"
+  os_type             = "Linux"
 
   container {
-    name   = "damcey-app"
-    image  = var.ghcr_image_url
-    cpu    = "0.5"
-    memory = "1.5"
+    name   = "damceyapp"
+    image  = "nginx:latest"
+    cpu    = 1
+    memory = 1.5
 
     ports {
       port     = 80
       protocol = "TCP"
     }
-  }
-
-  tags = {
-    environment = "dev"
   }
 }
