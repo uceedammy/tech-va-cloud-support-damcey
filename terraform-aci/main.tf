@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "~> 3.0"
     }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
   }
 }
 
@@ -20,7 +24,6 @@ resource "azurerm_resource_group" "main" {
   name     = "damcey-rg"
   location = "eastus"
 }
-
 
 resource "azurerm_container_group" "app" {
   name                = "damceyapp-${random_integer.suffix.result}"
