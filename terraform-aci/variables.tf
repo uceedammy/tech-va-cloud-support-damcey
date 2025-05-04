@@ -19,3 +19,8 @@ variable "ghcr_image_url" {
   description = "The URL of the Docker image in GHCR"
   type        = string
 }
+
+variable "client_id" {}
+variable "client_secret" {}
+variable "subscription_id" {}
+variable "tenant_id" {}
